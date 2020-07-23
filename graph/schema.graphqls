@@ -1,0 +1,367 @@
+type Video{
+  video_id : ID!
+  video_url : String!
+  video_title : String!
+  video_desc : String!
+  video_cat : String!
+  video_thumb : String!
+  playlist_id : Int!
+  like_count : Int!
+  dislike_count : Int!
+  age_restriction : String!
+  visibility : String!
+  location_video : String!
+  status : String!
+  premium : String!
+  view_count : Int!
+  user_id : Int!
+  video_duration : Int!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+type Playlist{
+  playlist_id : ID!
+  playlist_name : String!
+  user_id : Int!
+  visibility : String!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+type User{
+  user_id : ID!
+  membership : Boolean!
+  img_url : String!
+  email : String!
+  user_name : String!
+  subscriber_count : Int!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+type Comment{
+  comment_id : ID!
+  user_id : Int!
+  video_id : Int!
+  comment : String!
+  like_count : Int!
+  dislike_count : Int!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+type listPlaylist{
+  list_id : ID!
+  playlist_id : Int!
+  video_id : Int!
+}
+
+type Reply{
+  reply_id : ID!
+  comment_id : Int!
+  user_id : Int!
+  reply : String!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+type Likedvid{
+  like_id : ID!
+  user_id : Int!
+  video_id : Int!
+}
+
+type Dislikedvid{
+  dislike_id : ID!
+  user_id : Int!
+  video_id : Int!
+}
+
+type Likedcomment{
+  like_id : ID!
+  user_id : Int!
+  comment_id : Int!
+}
+
+type Dislikedcomment{
+  dislike_id : ID!
+  user_id : Int!
+  comment_id : Int!
+}
+type Likedreply{
+  like_id : ID!
+  user_id : Int!
+  reply_id : Int!
+}
+
+type Dislikedreply{
+  dislike_id : ID!
+  user_id : Int!
+  reply_id : Int!
+}
+
+type View{
+  view_id : ID!
+  user_id : Int!
+  video_id : Int!
+  view_count : Int!
+}
+
+type Subscriber{
+  subs_id : ID!
+  user_id : Int!
+  subscriber_id : Int!
+}
+
+type Query{
+  videos : [Video!]!
+  users : [User!]!
+  playlists : [Playlist!]!
+  replies : [Reply!]!
+  comments : [Comment!]!
+  likedvids : [Likedvid]!
+  dislikedvids : [Dislikedvid!]!
+  likedcomments : [Likedcomment!]!
+  dislikedcomments : [Dislikedcomment!]!
+  likedreply : [Likedreply!]!
+  dislikedreply : [Dislikedreply!]!
+  views : [View!]!
+  subscribers : [Subscriber!]!
+  listPlaylists : [listPlaylist!]!
+  getUserId(email : String!) : User!
+  getUser(user_id : Int!) : User!
+  getVideo(video_id : Int!) : Video!
+  getVideoUser(user_id : Int!) : [Video!]!
+  getAllComment : [Comment!]!
+  getComment(video_id : Int!) : [Comment!]!
+  getCommentById(comment_id : Int!) : Comment!
+  getPlayListUser(user_id : Int!) : [Playlist!]!
+  getReplyComment(comment_id : Int!) : [Reply!]!
+  getLikedVideo(video_id : Int!) : [Likedvid!]!
+  checkLikedVideo(video_id : Int! , user_id : Int!) : Likedvid!
+  getDislikedVideo(video_id : Int!) : [Dislikedvid!]!
+  checkDislikedVideo(video_id : Int! , user_id : Int!) : Dislikedvid!
+  getLikedComment(comment_id : Int!) : [Likedcomment!]!
+  checkLikedComment(comment_id : Int! , user_id : Int!) : Likedcomment!
+  getDislikedComment(comment_id : Int!) : [Dislikedcomment!]!
+  checkDislikedComment(comment_id : Int! , user_id : Int!) : Dislikedcomment!
+  getLikedReply(reply_id : Int!) : [Likedreply!]!
+  checkLikedReply(reply_id : Int! , user_id : Int!) : Likedreply!
+  getDislikedReply(reply_id : Int!) : [Dislikedreply!]!
+  checkDislikedReply(reply_id : Int! , user_id : Int!) : Dislikedreply!
+
+  getView(video_id : Int!) : [View!]!
+  checkView(video_id : Int! , user_id : Int!) : View!
+
+  getList(playlist_id : Int!) : [listPlaylist!]!
+  checkList(video_id : Int!) : listPlaylist!
+  getPlaylist(playlist_id : Int!) : Playlist!
+  checkPlaylistLike(playlist_name : String!) : [Playlist!]!
+
+  checkVideoLike(video_title : String!) : [Video!]!
+  checkChannelLike(user_name : String!) : [User!]!
+
+  getSubscriber(user_id : Int!) : [Subscriber!]!
+  checkSubs(user_id : Int! , subscriber_id : Int!) : Subscriber!
+  getMySubs(subscriber_id : Int!) : [Subscriber!]!
+
+  getRelated(video_cat : String! , location_video : String!) : [Video!]!
+  getRelatedCat(video_cat : String!) : [Video!]!
+}
+
+input newSubscriber{
+  user_id : Int!
+  subscriber_id : Int!
+}
+
+input newlistPlaylist{
+  playlist_id : Int!
+  video_id : Int!
+}
+
+input newVideo{
+  video_url : String!
+  video_title : String!
+  video_desc : String!
+  video_cat : String!
+  video_thumb : String!
+  playlist_id : Int!
+  like_count : Int!
+  dislike_count : Int!
+  age_restriction : String!
+  visibility : String!
+  location_video : String!
+  status : String!
+  premium : String!
+  view_count : Int!
+  user_id : Int!
+  video_duration : Int!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+input newLikedvid{
+  user_id : Int!
+  video_id : Int!
+}
+input newDislikedvid{
+  user_id : Int!
+  video_id : Int!
+}
+
+input newLikereply{
+  user_id : Int!
+  reply_id : Int!
+}
+input newDislikereply{
+  user_id : Int!
+  reply_id : Int!
+}
+
+input newLikedcomment{
+  user_id : Int!
+  comment_id : Int!
+}
+
+input newDislikedcomment{
+  user_id : Int!
+  comment_id : Int!
+}
+
+input newUser{
+  membership : Boolean!
+  img_url : String!
+  email : String!
+  user_name : String!
+  subscriber_count : Int!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+input newPlaylist{
+  playlist_name : String!
+  user_id : Int!
+  visibility : String!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+input newComment{
+  user_id : Int!
+  video_id : Int!
+  comment : String!
+  like_count : Int!
+  dislike_count : Int!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+
+input newReply{
+  comment_id : Int!
+  user_id : Int!
+  reply : String!
+  day : Int!
+  month : Int!
+  year : Int!
+  hour : Int!
+  minute : Int!
+  second :Int!
+}
+input newView{
+  user_id : Int!
+  video_id : Int!
+  view_count : Int!
+}
+
+type Mutation{
+  createVideo(input : newVideo) : Video!
+  updateVideo(id : Int!,input:newVideo): Video!
+  deleteVideo(id : Int!) : Boolean!
+
+  createUser(input: newUser) : User!
+  updateUser(user_id : Int!, input : newUser): User!
+  deleteUser(id : Int!): Boolean!
+
+  createPlaylist(input: newPlaylist) : Playlist!
+  updatePlaylist(id : Int!, input : newPlaylist): Playlist!
+  deletePlaylist(id : Int!): Boolean!
+
+  createList(input : newlistPlaylist) : listPlaylist!
+  deleteList(list_id : Int!) : Boolean!
+
+  createComment(input: newComment) : Comment!
+  updateComment(comment_id : Int!, comment : String!, day : Int!, month : Int! , year : Int!, hour : Int!, minute : Int! ,second : Int!): Comment!
+  updateLike(comment_id : Int!, like_count : Int!, dislike_count : Int!) : Comment!
+  deleteComment(id : Int!): Boolean!
+
+  createReply(input: newReply) : Reply!
+  updateReply(id : Int!, input : newReply): Reply!
+  deleteReply(id : Int!): Boolean!
+
+  createLikedvid(input : newLikedvid) : Likedvid!
+  updateLikedvid(like_id : Int!,input : newLikedvid) : Likedvid!
+  deleteLikedvid(video_id : Int!,user_id : Int!): Boolean!
+
+  createDislikedvid(input : newDislikedvid) : Dislikedvid!
+  updateDislikedvid(dislike_id : Int!,input : newDislikedvid) : Dislikedvid!
+  deleteDislikedvid(video_id : Int!,user_id : Int!): Boolean!
+
+  createLikedcomment(input : newLikedcomment) : Likedcomment!
+  updateLikedcomment(like_id : Int!,input : newLikedcomment) : Likedcomment!
+  deleteLikedcomment(comment_id : Int!,user_id : Int!): Boolean!
+
+  createDislikedcomment(input : newDislikedcomment) : Dislikedcomment!
+  updateDislikedcomment(dislike_id : Int!,input : newDislikedcomment) : Dislikedcomment!
+  deleteDislikedcomment(comment_id : Int!,user_id : Int!): Boolean!
+
+  createLikedreply(input : newLikereply) : Likedreply!
+  updateLikedreply(like_id : Int!,input : newLikereply) : Likedreply!
+  deleteLikedreply(reply_id : Int!,user_id : Int!): Boolean!
+
+  createDislikedreply(input : newDislikereply) : Dislikedreply!
+  updateDislikedreply(dislike_id : Int!,input : newDislikereply) : Dislikedreply!
+  deleteDislikedreply(reply_id : Int!,user_id : Int!): Boolean!
+
+  createView(input : newView) : View!
+  updateView(view_id : Int! , input : newView) : View!
+
+  createSubs(input : newSubscriber) : Subscriber!
+  deleteSubs(user_id : Int!, subscriber_id : Int!) : Boolean!
+}
