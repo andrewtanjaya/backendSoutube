@@ -332,7 +332,7 @@ func (r *mutationResolver) DeleteReply(ctx context.Context, id int) (bool, error
 	if err != nil {
 		return false, errors.New("Not Found")
 	}
-	_, upErr := r.DB.Model(&reply).Where("reply_id = ?", reply).Delete()
+	_, upErr := r.DB.Model(&reply).Where("reply_id = ?", id).Delete()
 	if upErr != nil {
 		return false, errors.New("Delete Failed")
 	}
